@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>YT PFP Downloader – Free YouTube Profile Picture Download</title>
-  <meta name="description" content="Download YouTube profile pictures in up to 9 sizes. Paste a channel URL, @handle, or video link, preview the avatar and save it for free. No sign-up.">
+  <meta name="description" content="Download YouTube profile pictures in up to 9 sizes. Paste a channel URL, @handle, or video link, preview the avatar and save it for free. Sign in to download for free.">
   <meta name="theme-color" content="#0b0b0d"><meta property="og:type" content="website">
   <meta property="og:title" content="YT PFP Downloader"><meta property="og:description" content="A better look at any YouTube profile. Preview and download channel avatars, free.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -14,7 +14,7 @@
 </head>
 <body>
   <a href="#profile-input" class="skip-link">Skip to downloader</a>
-  <header class="site-header"><a href="/" class="brand" aria-label="YT PFP home"><img src="/favicon.svg" width="29" height="29" alt=""><span>YT PFP<span class="brand-dot">.</span></span></a><nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#image-sizes">Image sizes</a><a href="#faq">FAQ</a></nav><span class="header-note">Free. Just like that.</span></header>
+  <header class="site-header"><a href="/" class="brand" aria-label="YT PFP home"><img src="/favicon.svg" width="29" height="29" alt=""><span>YT PFP<span class="brand-dot">.</span></span></a><nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#image-sizes">Image sizes</a><a href="#faq">FAQ</a></nav><span id="session-root"></span></header>
   <main>
     <section class="hero" aria-labelledby="page-title">
       <h1 id="page-title">YT PFP Downloader</h1>
@@ -26,13 +26,13 @@
 
     <section id="how-it-works" class="section" aria-labelledby="how-title">
       <div class="section-intro"><h2 id="how-title">From link to profile picture.<br>In three simple steps.</h2><p>No screenshots. No browser extensions.<br>Just the picture you came for.</p></div>
-      <ol class="steps"><li><span class="step-number">01</span><h3>Drop in a YouTube link</h3><p>Paste a channel URL, an @handle, or any public video from the creator. Short links and Shorts work, too.</p></li><li><span class="step-number">02</span><h3>Take a closer look</h3><p>Check the channel name and preview its avatar. Switch between a square image and a circular preview.</p></li><li><span class="step-number">03</span><h3>Pick a size. Save it.</h3><p>Choose from the available resolutions and download the JPG directly to your phone or computer.</p></li></ol>
+      <ol class="steps"><li><span class="step-number">01</span><h3>Drop in a YouTube link</h3><p>Paste a channel URL, an @handle, or any public video from the creator. Short links and Shorts work, too.</p></li><li><span class="step-number">02</span><h3>Take a closer look</h3><p>Check the channel name and preview its avatar. Switch between a square image and a circular preview.</p></li><li><span class="step-number">03</span><h3>Pick a size. Save it.</h3><p>Sign in for free, choose from the available resolutions and download the JPG directly to your phone or computer.</p></li></ol>
     </section>
 
     <section class="section features" aria-labelledby="features-title"><div class="section-intro"><h2 id="features-title">Everything you need.<br>Nothing in the way.</h2><p>A small tool for one very specific job.</p></div><div class="feature-list">
       <article><span class="feature-index">01 /</span><div><h3>Every size, clearly labeled</h3><p>Up to nine options, from a compact 88px avatar to a 1280px image. See the actual pixel dimensions before you save.</p></div></article>
       <article><span class="feature-index">02 /</span><div><h3>A video link is all you need</h3><p>Don’t have the channel URL? Share one of its videos. We’ll find the creator and retrieve their profile picture.</p></div></article>
-      <article><span class="feature-index">03 /</span><div><h3>Made for your browser</h3><p>Use it on desktop, iPhone or Android. No app, extension or account required. Your download stays a regular image file.</p></div></article>
+      <article><span class="feature-index">03 /</span><div><h3>Made for your browser</h3><p>Use it on desktop, iPhone or Android. No app or extension required. Sign in to download for free. Your download stays a regular image file.</p></div></article>
       <article><span class="feature-index">04 /</span><div><h3>Free, from preview to download</h3><p>No credits to buy and no checkout at the last step. Public channel avatars, ready when you need them.</p></div></article>
     </div></section>
 
@@ -45,7 +45,7 @@
       <details><summary>Which YouTube links can I use?</summary><p>Use a channel’s @handle, a youtube.com/@handle or /channel/ link, a regular video URL, a youtu.be share link, or a Shorts link. Legacy /user/ URLs are supported; older custom /c/ links may require the channel’s current @handle instead. Playlist and search-result links are not supported.</p></details>
       <details><summary>Do I need the channel URL specifically?</summary><p>No. Paste a public video link and we’ll identify the channel that uploaded it, then retrieve its avatar. You’ll see the channel name before you download.</p></details>
       <details><summary>Can I download in HD or 4K?</summary><p>We check image variants in nine sizes up to 1280px and show the actual returned dimensions. YouTube’s channel API commonly supplies an 800px option. Bigger variants may be scaled by YouTube and are not guaranteed to contain more native detail. We do not promise 4K or the original uploaded file.</p></details>
-      <details><summary>Is it really free? Do I need an account?</summary><p>Yes, profile lookups and downloads are free. There is no account or subscription. Short request limits help keep the tool available to everyone; if you hit one, wait a minute before trying again.</p></details>
+      <details><summary>Is it really free? Do I need an account?</summary><p>Yes, profile lookups and downloads are free. Preview without an account, then sign in with Google or a verified email to download. There is no subscription. Short request limits help keep the tool available to everyone; if you hit one, wait a minute before trying again.</p></details>
       <details><summary>How do I save the picture on my phone?</summary><p>Tap Download JPG. Your browser may save it to Files or Downloads rather than Photos. If direct download is unavailable, use Open image, then touch and hold the image to save it. The exact menu depends on your browser.</p></details>
       <details><summary>Can I get private or old profile pictures?</summary><p>The tool retrieves the current publicly accessible avatar. It cannot recover past avatars or access private account data.</p></details>
       <details><summary>Why can’t the tool find a profile?</summary><p>Check the link or @handle, and confirm the channel or video is publicly available. A deleted video, a renamed handle, request limits or a temporary YouTube issue can prevent a lookup. Try the channel’s current link.</p></details>

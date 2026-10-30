@@ -76,7 +76,7 @@ test('image tokens reject modification, expiration, unapproved hosts and sizes',
   assert.throws(()=>variantUrl(source,999999));
 });
 test('HTTP route returns real JPEG attachment, handles errors and blocks secrets/static traversal',async(t)=>{
-  const {fetcher}=upstream(); const server=createApp({key:'DO_NOT_EXPOSE',secret:'test',fetcher});
+  const {fetcher}=upstream(); const server=createApp({key:'DO_NOT_EXPOSE',secret:'test',fetcher,sessionReader:async()=>({user:{id:'test'}})});
   await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));
   const base=`http://127.0.0.1:${server.address().port}`;
   const send=(input,headers={})=>fetch(base+'/api/profile',{method:'POST',headers:{'content-type':'application/json',...headers},body:JSON.stringify({input})});

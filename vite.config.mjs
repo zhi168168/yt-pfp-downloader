@@ -16,6 +16,6 @@ export default defineConfig({
       ];
     }
   }],
-  build: { rollupOptions: { input: Object.fromEntries(['index','about','contact','privacy','terms'].map(n=>[n,resolve(import.meta.dirname,`${n}.html`)])) } },
+  build: { rollupOptions: { input: Object.fromEntries(['index','about','contact','privacy','terms','account'].map(n=>[n,resolve(import.meta.dirname,`${n}.html`)])) } },
   server: { host: '127.0.0.1' }
 });

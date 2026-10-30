@@ -1,15 +1,16 @@
 # YT PFP Downloader
 
-Free English-language channel-avatar tool. Node 22.12+; React + Vite frontend,
+Free English-language channel-avatar tool. Node 24.x; React + Vite frontend,
 Node HTTP server, official YouTube Data API, server-side JPEG delivery.
 
 ## Run
 
 1. `pnpm install`
 2. Copy `.env.example` to `.env` and set `YOUTUBE_API_KEY` on the server only.
-3. `pnpm dev` (http://127.0.0.1:8788)
-4. `pnpm test` and `pnpm build`
-5. `pnpm start` serves the built production site on the same port.
+3. For local accounts also set `ACCOUNT_ORIGIN=http://127.0.0.1:8788` and `AUTH_DEV_MODE=true`; public accounts need the database and provider setup in [docs/accounts.md](docs/accounts.md).
+4. `pnpm dev` (http://127.0.0.1:8788)
+5. `pnpm test` and `pnpm build`
+6. `pnpm start` serves the built production site on the same port.
 
 The supplied key has already been configured locally in the ignored `.env`.
 Do not put it into a VITE_ variable, client bundle, Git or a screenshot.
@@ -18,8 +19,9 @@ Do not put it into a VITE_ variable, client bundle, Git or a screenshot.
 
 Import `zhi168168/yt-pfp-downloader` into Vercel. The repository includes
 `vercel.json` and Node Functions for profile/image/health routes. Select Node
-22.x and set server-only `YOUTUBE_API_KEY` and a stable (32+ characters)
+24.x and set server-only `YOUTUBE_API_KEY` and a stable (32+ characters)
 `DOWNLOAD_SIGNING_SECRET` before deploying. Do not copy local proxy variables.
+Downloads now require accounts: configure and migrate the independent database using [docs/accounts.md](docs/accounts.md) before production use.
 Detailed Chinese instructions: [docs/vercel-deployment.md](docs/vercel-deployment.md).
 
 Vercel serves `dist` directly. Build-time canonical URLs/robots/sitemap use
@@ -47,7 +49,7 @@ daily-budget guarantee. Hosting access logs are controlled by the host.
 
 Fonts and licenses are bundled in public/fonts; no dependency on local fonts.
 The example image is a public YouTube channel avatar, clearly marked Example.
-No analytics, account system or payments. No deployment has been performed.
+Better Auth accounts support Google and verified email sign-in. Downloads require a real session; previews are public and capped at 400px. No analytics or payments. See [account setup](docs/accounts.md) for independent production credentials.
 
 ## Behavior
 

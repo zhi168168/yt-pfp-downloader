@@ -8,9 +8,11 @@ GitHub 仓库：https://github.com/zhi168168/yt-pfp-downloader
 2. 导入 `zhi168168/yt-pfp-downloader`，分支选 `main`。
 3. Framework Preset 选 **Vite**，Root Directory 保持仓库根目录。
 4. 配置文件已指定：Install `pnpm install --frozen-lockfile`，Build `pnpm build`，Output `dist`。
-5. Node.js 使用 **22.x**。
+5. Node.js 使用 **24.x**。
 
 ## 首次 Deploy 前填写环境变量
+
+**登录版还需先完成 [账号、Google 和邮件配置](accounts.md)，包括独立数据库建表。仅填写下方两项无法启用下载所需的登录功能。**
 
 | 名称 | 填写内容 | 范围 |
 |---|---|---|

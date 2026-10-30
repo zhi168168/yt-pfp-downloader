@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Icon } from './icons.jsx';
+import { AccountLink, accountAPI } from './Account.jsx';
 
 const demoSizes = [1280,1080,900,800,720,500,400,240,88].map(size=>({size,width:size,height:size}));
-function ProfileResult({ profile, onRefresh, busy }) {
+function ProfileResult({ profile, onRefresh, busy, input, restoredSize }) {
   const [selected, setSelected] = useState(profile?.sizes[0]?.size || 800);
   const [shape, setShape] = useState('square');
   const [downloading, setDownloading] = useState(false);
@@ -14,18 +15,34 @@ function ProfileResult({ profile, onRefresh, busy }) {
   const sizes = profile?.sizes || demoSizes;
   const choice = sizes.find(s=>s.size === selected) || sizes[0];
   const image = profile ? choice.imageUrl : '/images/example-youtube.jpg';
-  useEffect(()=>{ setSelected(profile?.sizes[0]?.size || 800); setMessage(''); },[profile]);
+  useEffect(()=>{ setSelected(restoredSize || profile?.sizes[0]?.size || 800); setMessage(''); },[profile]);
   useEffect(()=>{
     if (!zoom) return;
     const dialog = dialogRef.current;
     dialog.showModal();
     return ()=>{ if (dialog.open) dialog.close(); };
   },[zoom]);
+  function signIn() {
+    try { sessionStorage.setItem('ytpfp-download', JSON.stringify({input, size:choice.size, time:Date.now()})); } catch {}
+    window.location.assign('/account?returnTo=%2F&download=1');
+  }
+  async function requireSession() {
+    const session = await accountAPI('get-session');
+    if (!session?.user) { signIn(); return false; }
+    return true;
+  }
+  async function openImage(event) {
+    event.preventDefault();
+    try { if (await requireSession()) window.location.assign(choice.downloadUrl + '&inline=2'); }
+    catch { setMessage('Sign-in service is temporarily unavailable. Please try again.'); }
+  }
   async function download() {
     if (downloading || !profile) return;
     setDownloading(true); setMessage('');
     try {
-      const response = await fetch(choice.downloadUrl);
+      if (!await requireSession()) return;
+      const response = await fetch(choice.downloadUrl, {credentials:'same-origin',cache:'no-store'});
+      if (response.status === 401) { signIn(); return; }
       if (!response.ok) { const data = await response.json(); throw new Error(data.error || 'Download failed. Please try again.'); }
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
@@ -43,7 +60,7 @@ function ProfileResult({ profile, onRefresh, busy }) {
       <div className="result-info"><div className="channel-heading"><div><h2>{profile?.name || 'YouTube'}</h2><p className="channel-handle">{profile?.handle || (profile ? 'Public YouTube channel' : '@YouTube')}</p></div>{profile && <a className="icon-button channel-external" href={profile.channelUrl} target="_blank" rel="noopener noreferrer" aria-label="View channel on YouTube"><Icon name="external"/></a>}</div>
         <div className="size-picker"><p id="choose-size" className="control-label">Choose your size</p><div className="size-options" role="group" aria-labelledby="choose-size">{sizes.map(s=><button key={s.size} aria-pressed={choice.size===s.size} onClick={()=>{setSelected(s.size);setMessage('');}}>{s.size}<span>px</span></button>)}</div></div>
         <p className="selected-dimensions">{profile ? `${choice.width} × ${choice.height} px · JPG` : 'Example · 800 × 800 px'}{profile && choice.size===sizes[0].size && <span className="largest-label">Largest available</span>}</p>
-        {profile ? <><button ref={downloadRef} className="primary download-button" onClick={download} disabled={downloading || busy}><Icon name="download"/>{downloading?'Preparing image…':'Download JPG'}<span className="file-size">{Math.max(1,Math.round(choice.bytes/1024))} KB</span></button><div className="result-secondary"><a href={choice.imageUrl} target="_blank" rel="noopener noreferrer">Open image <Icon name="external"/></a><button onClick={onRefresh} disabled={busy}>Try another channel <Icon name="refresh"/></button></div></> : <div className="example-note"><Icon name="link"/><span>Enter a channel above to download<br className="desktop-break"/> its profile picture.</span></div>}
+        {profile ? <><button ref={downloadRef} className="primary download-button" onClick={download} disabled={downloading || busy}><Icon name="download"/>{downloading?'Preparing image…':'Download JPG'}<span className="file-size">{Math.max(1,Math.round(choice.bytes/1024))} KB</span></button><div className="result-secondary"><a href={choice.downloadUrl + '&inline=2'} onClick={openImage}>Open image <Icon name="external"/></a><button onClick={onRefresh} disabled={busy}>Try another channel <Icon name="refresh"/></button></div></> : <div className="example-note"><Icon name="link"/><span>Enter a channel above to download<br className="desktop-break"/> its profile picture.</span></div>}
         <p className="download-message" role="status">{message}</p>
       </div>
     </div>
@@ -53,12 +70,22 @@ function ProfileResult({ profile, onRefresh, busy }) {
 }
 function Downloader() {
   const [input,setInput] = useState('');
+  const [restoredSize,setRestoredSize] = useState(null);
   const [profile,setProfile] = useState(null);
   const [busy,setBusy] = useState(false);
   const [error,setError] = useState('');
   const inputRef = useRef();
   const abortRef = useRef();
-  useEffect(()=>()=>abortRef.current?.abort(),[]);
+  useEffect(()=>{
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('ytpfp-download') || 'null');
+      if (saved && Date.now()-saved.time < 86400000 && typeof saved.input === 'string') {
+        setInput(saved.input); setRestoredSize(saved.size); lookup(saved.input);
+      }
+      sessionStorage.removeItem('ytpfp-download');
+    } catch {}
+    return ()=>abortRef.current?.abort();
+  },[]);
   async function lookup(value = input) {
     if (!value.trim()) {setError('Paste a YouTube channel, @handle, or video link.'); inputRef.current?.focus(); return;}
     abortRef.current?.abort();
@@ -74,10 +101,11 @@ function Downloader() {
   }
   return <>
     <form className="lookup-form" onSubmit={e=>{e.preventDefault();lookup();}} aria-label="Find a YouTube profile picture"><label htmlFor="profile-input" className="sr-only">YouTube channel URL, @handle, or video link</label><div className="input-wrap"><Icon name="link"/><input ref={inputRef} id="profile-input" value={input} onChange={e=>{setInput(e.target.value);setError('');}} placeholder="Paste a YouTube URL or @handle" maxLength="2048" autoComplete="off" spellCheck="false" aria-invalid={Boolean(error)} aria-describedby={error?'lookup-error':'input-help'} disabled={busy}/>{input && !busy && <button type="button" className="clear-input" onClick={()=>{setInput('');inputRef.current?.focus();}} aria-label="Clear link"><Icon name="close"/></button>}</div><button className="primary fetch-button" disabled={busy} type="submit">{busy?<><span className="spinner"/>Fetching profile…</>:<>Get profile picture<Icon name="arrow"/></>}</button></form>
-    <div className="form-meta" id="input-help"><span>Or try <button disabled={busy} onClick={()=>{setInput('@YouTube');lookup('@YouTube');}}>@YouTube</button></span><span className="assurances"><span>Free to use</span><i/> <span>No sign-up</span><i/><span>9 image sizes</span></span></div>
+    <div className="form-meta" id="input-help"><span>Or try <button disabled={busy} onClick={()=>{setInput('@YouTube');lookup('@YouTube');}}>@YouTube</button></span><span className="assurances"><span>Free to use</span><i/> <span>Sign in to download</span><i/><span>9 image sizes</span></span></div>
     {error && <div className="lookup-error" id="lookup-error" role="alert"><span>{error}</span><button disabled={busy} onClick={()=>lookup()}>Try again <Icon name="refresh"/></button></div>}
     <div className="lookup-status sr-only" role="status">{busy?'Finding the channel and checking image sizes.':profile?`Found ${profile.name}. ${profile.sizes.length} image sizes available.`:''}</div>
-    <ProfileResult profile={profile} busy={busy} onRefresh={()=>{setProfile(null);setInput('');setError('');inputRef.current?.focus();inputRef.current?.scrollIntoView({behavior:'smooth',block:'center'});}}/>
+    <ProfileResult input={input} restoredSize={restoredSize} profile={profile} busy={busy} onRefresh={()=>{setProfile(null);setRestoredSize(null);setInput('');setError('');inputRef.current?.focus();inputRef.current?.scrollIntoView({behavior:'smooth',block:'center'});}}/>
   </>;
 }
 createRoot(document.getElementById('downloader')).render(<Downloader/>);
+createRoot(document.getElementById('session-root')).render(<AccountLink/>);

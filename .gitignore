@@ -10,3 +10,5 @@ public/robots.txt
 public/sitemap.xml
 test-results/
 api-smoke-test.py
+
+work/

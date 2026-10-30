@@ -14,7 +14,7 @@ test('Vercel parsed JSON bodies and HTTPS forwarded origin work, including previ
     const size = Number(url.match(/=s(\d+)/)[1]);
     return new Response(await sharp({ create: { width: size, height: size, channels: 3, background: '#000' } }).jpeg().toBuffer(), { headers: { 'content-type': 'image/jpeg' } });
   };
-  const options = { key: 'server-only', secret: 'a'.repeat(64), trustProxy: true, publicOrigin: 'https://production.example', fetcher };
+  const options = { sessionReader:async()=>({user:{id:'test'}}), key: 'server-only', secret: 'a'.repeat(64), trustProxy: true, publicOrigin: 'https://production.example', fetcher };
   const firstInstance = createRequestHandler(options);
   const secondInstance = createRequestHandler(options);
   const server = http.createServer((req, res) => {
@@ -37,7 +37,7 @@ test('Vercel parsed JSON bodies and HTTPS forwarded origin work, including previ
 });
 
 test('Vercel function entrypoints load without opening a listening server', async () => {
-  const entries = await Promise.all(['profile','image','health'].map(name => import(`../api/${name}.mjs`)));
+  const entries = await Promise.all(['profile','image','health','account'].map(name => import(`../api/${name}.mjs`)));
   assert.ok(entries.every(module => typeof module.default === 'function'));
   assert.equal(entries[0].default, entries[1].default);
   assert.equal(entries[1].default, entries[2].default);
@@ -61,5 +61,7 @@ test('build-time SEO uses the production domain and rejects invalid origins', ()
 test('Vercel configuration includes all API routes and static output', async () => {
   const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
   assert.equal(config.outputDirectory, 'dist');
-  for (const name of ['profile','image','health']) assert.ok(config.functions[`api/${name}.mjs`]);
+  for (const name of ['profile','image','health','account']) assert.ok(config.functions[`api/${name}.mjs`]);
+  assert.ok(config.rewrites.some(route => route.source === '/api/auth/:path*' && route.destination === '/api/account?__authPath=:path*'));
+  assert.ok(config.rewrites.some(route => route.source === '/account' && route.destination === '/account.html'));
 });

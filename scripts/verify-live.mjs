@@ -13,7 +13,10 @@ async function profile(input) {
 const {result:youtube,response}=await profile('@YouTube');
 assert.equal(response.status,200);assert.equal(youtube.name,'YouTube');assert.equal(youtube.sizes.length,9);
 for (const size of youtube.sizes) {
-  const response = await fetch(base+size.downloadUrl);
+  const guest = await fetch(base+size.downloadUrl);
+  assert.equal(guest.status,401);
+  if (!process.env.TEST_ACCOUNT_COOKIE) continue;
+  const response = await fetch(base+size.downloadUrl,{headers:{cookie:process.env.TEST_ACCOUNT_COOKIE}});
   assert.equal(response.status,200);assert.match(response.headers.get('content-disposition'),/^attachment/);
   const bytes = Buffer.from(await response.arrayBuffer());
   const meta = await sharp(bytes).metadata();
