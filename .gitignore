@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+.qa/
+.vercel/
+public/robots.txt
+public/sitemap.xml
+test-results/
+api-smoke-test.py

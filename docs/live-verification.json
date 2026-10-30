@@ -1,0 +1,345 @@
+{
+  "verifiedAt": "2026-10-30T09:18:17.856Z",
+  "checks": [
+    {
+      "input": "@YouTube",
+      "status": 200,
+      "seconds": 2.09,
+      "name": "YouTube",
+      "sizes": [
+        {
+          "requested": 1280,
+          "width": 1280,
+          "height": 1280
+        },
+        {
+          "requested": 1080,
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "requested": 900,
+          "width": 900,
+          "height": 900
+        },
+        {
+          "requested": 800,
+          "width": 800,
+          "height": 800
+        },
+        {
+          "requested": 720,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "requested": 500,
+          "width": 500,
+          "height": 500
+        },
+        {
+          "requested": 400,
+          "width": 400,
+          "height": 400
+        },
+        {
+          "requested": 240,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "requested": 88,
+          "width": 88,
+          "height": 88
+        }
+      ]
+    },
+    {
+      "download": 1280,
+      "width": 1280,
+      "height": 1280,
+      "bytes": 37020,
+      "ok": true
+    },
+    {
+      "download": 1080,
+      "width": 1080,
+      "height": 1080,
+      "bytes": 30530,
+      "ok": true
+    },
+    {
+      "download": 900,
+      "width": 900,
+      "height": 900,
+      "bytes": 23273,
+      "ok": true
+    },
+    {
+      "download": 800,
+      "width": 800,
+      "height": 800,
+      "bytes": 19916,
+      "ok": true
+    },
+    {
+      "download": 720,
+      "width": 720,
+      "height": 720,
+      "bytes": 17417,
+      "ok": true
+    },
+    {
+      "download": 500,
+      "width": 500,
+      "height": 500,
+      "bytes": 11487,
+      "ok": true
+    },
+    {
+      "download": 400,
+      "width": 400,
+      "height": 400,
+      "bytes": 8794,
+      "ok": true
+    },
+    {
+      "download": 240,
+      "width": 240,
+      "height": 240,
+      "bytes": 5020,
+      "ok": true
+    },
+    {
+      "download": 88,
+      "width": 88,
+      "height": 88,
+      "bytes": 2009,
+      "ok": true
+    },
+    {
+      "input": "https://youtu.be/jNQXAC9IVRw",
+      "status": 200,
+      "seconds": 1.04,
+      "name": "jawed",
+      "sizes": [
+        {
+          "requested": 1280,
+          "width": 1280,
+          "height": 1280
+        },
+        {
+          "requested": 1080,
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "requested": 900,
+          "width": 900,
+          "height": 900
+        },
+        {
+          "requested": 800,
+          "width": 800,
+          "height": 800
+        },
+        {
+          "requested": 720,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "requested": 500,
+          "width": 500,
+          "height": 500
+        },
+        {
+          "requested": 400,
+          "width": 400,
+          "height": 400
+        },
+        {
+          "requested": 240,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "requested": 88,
+          "width": 88,
+          "height": 88
+        }
+      ]
+    },
+    {
+      "input": "https://www.youtube.com/channel/UCBR8-60-B28hp2BmDPdntcQ",
+      "status": 200,
+      "seconds": 0.18,
+      "name": "YouTube",
+      "sizes": [
+        {
+          "requested": 1280,
+          "width": 1280,
+          "height": 1280
+        },
+        {
+          "requested": 1080,
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "requested": 900,
+          "width": 900,
+          "height": 900
+        },
+        {
+          "requested": 800,
+          "width": 800,
+          "height": 800
+        },
+        {
+          "requested": 720,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "requested": 500,
+          "width": 500,
+          "height": 500
+        },
+        {
+          "requested": 400,
+          "width": 400,
+          "height": 400
+        },
+        {
+          "requested": 240,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "requested": 88,
+          "width": 88,
+          "height": 88
+        }
+      ]
+    },
+    {
+      "input": "https://www.youtube.com/user/Google",
+      "status": 200,
+      "seconds": 0.78,
+      "name": "Google",
+      "sizes": [
+        {
+          "requested": 1280,
+          "width": 1280,
+          "height": 1280
+        },
+        {
+          "requested": 1080,
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "requested": 900,
+          "width": 900,
+          "height": 900
+        },
+        {
+          "requested": 800,
+          "width": 800,
+          "height": 800
+        },
+        {
+          "requested": 720,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "requested": 500,
+          "width": 500,
+          "height": 500
+        },
+        {
+          "requested": 400,
+          "width": 400,
+          "height": 400
+        },
+        {
+          "requested": 240,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "requested": 88,
+          "width": 88,
+          "height": 88
+        }
+      ]
+    },
+    {
+      "input": "https://www.youtube.com/c/Google",
+      "status": 200,
+      "seconds": 1.57,
+      "name": "Google",
+      "sizes": [
+        {
+          "requested": 1280,
+          "width": 1280,
+          "height": 1280
+        },
+        {
+          "requested": 1080,
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "requested": 900,
+          "width": 900,
+          "height": 900
+        },
+        {
+          "requested": 800,
+          "width": 800,
+          "height": 800
+        },
+        {
+          "requested": 720,
+          "width": 720,
+          "height": 720
+        },
+        {
+          "requested": 500,
+          "width": 500,
+          "height": 500
+        },
+        {
+          "requested": 400,
+          "width": 400,
+          "height": 400
+        },
+        {
+          "requested": 240,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "requested": 88,
+          "width": 88,
+          "height": 88
+        }
+      ]
+    },
+    {
+      "input": "https://example.com",
+      "status": 400,
+      "seconds": 0.01,
+      "error": "Only YouTube links are supported."
+    },
+    {
+      "input": "@this_channel_does_not_exist_ytpfptest_83027491",
+      "status": 404,
+      "seconds": 0.17,
+      "error": "No public channel found. Check the @handle or try its channel link."
+    }
+  ]
+}
