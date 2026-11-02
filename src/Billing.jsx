@@ -28,7 +28,9 @@ export function BillingPanel() {
     {error && <p className="billing-error" role="alert">{error}</p>}</section>;
 }
 export function Pricing() {
-  const consentInput=useRef(null);
+  const checkoutDialog=useRef(null);
+  const [selectedPlan,setSelectedPlan]=useState(null);
+  const selected=plans[selectedPlan];
   const [usage,setUsage]=useState(null),[guest,setGuest]=useState(false),[loading,setLoading]=useState(true),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[consent,setConsent]=useState(false);
   const payment=new URLSearchParams(typeof location === 'undefined' ? '' : location.search).get('payment');
   async function refresh() {
@@ -41,38 +43,41 @@ export function Pricing() {
     finally{setLoading(false);}
   }
   useEffect(()=>{refresh();},[]);
-  async function checkout(plan) {
+  useEffect(()=>{
+    if(!selectedPlan)return;
+    const dialog=checkoutDialog.current;
+    const previousOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    dialog.showModal();
+    return ()=>{if(dialog.open)dialog.close();document.body.style.overflow=previousOverflow;};
+  },[selectedPlan]);
+  function choosePlan(plan){
     if(guest){location.assign('/account?returnTo=%2Fpricing.html');return;}
-    if(!consent){
-      setError('Before choosing a paid plan, read and accept the monthly renewal terms above.');
-      consentInput.current?.scrollIntoView({behavior:'smooth',block:'center'});
-      consentInput.current?.focus({preventScroll:true});
-      return;
-    }
+    setConsent(false);setError('');setSelectedPlan(plan);
+  }
+  function closeCheckout(){if(!busy){setSelectedPlan(null);setConsent(false);setError('');}}
+  async function checkout(event) {
+    event.preventDefault();
+    if(!selected || !consent || busy)return;
     setBusy(true);setError('');
-    try{const result=await billingAPI('checkout',{plan,consent});location.assign(result.url);}
+    try{const result=await billingAPI('checkout',{plan:selectedPlan,consent});location.assign(result.url);}
     catch(error){setError(error.message);}finally{setBusy(false);}
   }
   return <>
     <div className="pricing-intro"><span className="eyebrow">SIMPLE MONTHLY PLANS</span><h1>YT PFP Downloader pricing</h1><p>Start with one free channel a day. Need more? Choose your daily allowance. Every plan includes all available image sizes.</p></div>
     {usage && <UsageLine usage={usage}/>}
     {usage?.mode==='test' && <p className="billing-notice">Sandbox payment mode. Test purchases do not grant production access.</p>}
-    {error && <p className="billing-error" role="alert">{error}</p>}
+    {error && !selectedPlan && <p className="billing-error" role="alert">{error}</p>}
     {notice && <p className="billing-notice" role="status">{notice}</p>}
-    <div className="billing-authorization">
-      <p>Before choosing a paid plan</p>
-      <label className="billing-consent"><input ref={consentInput} type="checkbox" checked={consent} onChange={e=>{setConsent(e.target.checked);setError('');}}/><span>I agree to the <a href="/terms.html">Terms</a>, <a href="/privacy.html">Privacy Policy</a> and <a href="/refunds.html">Refund Policy</a>, and authorize monthly recurring charges for the plan I choose until I cancel.</span></label>
-    </div>
     <div className="pricing-grid">{Object.entries(plans).map(([key,plan])=><section className={`price-card ${key==='starter'?'recommended':''}`} key={key}>
       <div className="price-heading"><h2>{plan.name}</h2>{key==='starter'&&<span>MORE ROOM</span>}</div>
       <p className="price-amount">${plan.amount}<span>{key==='free'?' / forever':' / month'}</span></p>
       <p className="price-limit"><strong>{plan.dailyLimit.toLocaleString('en-US')}</strong> {plan.dailyLimit===1?'channel':'channels'} per day</p>
       <ul><li>Channel lookup and profile information</li><li>Preview every available image size</li><li>Download all available avatar sizes</li><li>Repeat a channel at no extra daily cost</li></ul>
       {key==='free' ? <a className="primary" href={guest?'/account?returnTo=%2F':'/'}>{guest?'Create a free account':'Back to downloader'}</a>:
-        <button className="primary" disabled={loading || busy || (!guest && (!usage?.paymentsAvailable || usage?.hasSubscription))} onClick={()=>checkout(key)}>
+        <button className="primary" disabled={loading || busy || (!guest && (!usage?.paymentsAvailable || usage?.hasSubscription))} onClick={()=>choosePlan(key)}>
           {busy?'Opening checkout…':usage?.plan===key?'Current plan':guest?'Sign in to choose':`Choose ${plan.name}`}</button>}
       <p className="billing-note">{key==='free'?'No card required.':`Billed monthly at $${plan.amount} USD, plus any applicable tax. Automatically renews until canceled.`}</p>
-      {key!=='free' && !guest && !consent && !loading && usage?.paymentsAvailable && !usage?.hasSubscription && <p className="billing-note">Accept the monthly renewal terms above to continue.</p>}
     </section>)}</div>
     <div className="pricing-details">
       {!guest && !loading && !usage?.paymentsAvailable && <p className="billing-note">Paid checkout is not available yet. Your free daily channel allowance is available.</p>}
@@ -84,5 +89,21 @@ export function Pricing() {
       <h2>Can I request a refund?</h2><p>For your first paid subscription, request a full refund within 7 calendar days if your total paid channel uses since that payment are no more than 10 for Starter or 100 for Pro. This is a cumulative threshold, not a daily refund threshold. Support reviews requests. Duplicate charges, qualifying service interruptions and mandatory legal rights are covered in our <a href="/refunds.html">Refund Policy</a>.</p>
       <h2>Does paying create a sharper original?</h2><p>All plans offer the same available image sizes. Larger variants may be scaled by YouTube; a paid plan increases your daily channel allowance.</p>
     </div>
+    {selected && <dialog ref={checkoutDialog} className="checkout-dialog" aria-labelledby="checkout-title" aria-describedby="checkout-renewal" onCancel={event=>{event.preventDefault();closeCheckout();}} onClick={event=>{if(event.target===event.currentTarget)closeCheckout();}}>
+      <button type="button" className="checkout-close" aria-label="Close subscription confirmation" disabled={busy} onClick={closeCheckout}>×</button>
+      <form onSubmit={checkout}>
+        <span className="eyebrow">CONFIRM YOUR PLAN</span>
+        <h2 id="checkout-title">Subscribe to {selected.name}</h2>
+        <p className="checkout-price">${selected.amount} <span>USD / month</span></p>
+        <p className="checkout-tax">Plus any applicable tax, shown at checkout.</p>
+        <p className="checkout-allowance">{selected.dailyLimit.toLocaleString('en-US')} channels per day · All available avatar sizes</p>
+        <p id="checkout-renewal">Automatically renews at ${selected.amount} USD per month, plus applicable tax, until canceled. Cancel through My account; access continues through your paid period.</p>
+        <p>First subscription: request a full refund within 7 days if your cumulative paid channel uses are no more than {selectedPlan==='starter'?10:100}. Support reviews requests. <a href="/refunds.html" target="_blank" rel="noopener noreferrer">Refund details</a>.</p>
+        <label className="billing-consent"><input type="checkbox" required checked={consent} disabled={busy} onChange={event=>setConsent(event.target.checked)}/><span>I agree to the <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms</a>, <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="/refunds.html" target="_blank" rel="noopener noreferrer">Refund Policy</a>, and authorize monthly recurring charges of ${selected.amount} USD, plus applicable tax, until I cancel.</span></label>
+        {error && <p className="billing-error" role="alert">{error}</p>}
+        <button type="submit" className="primary" disabled={!consent || busy}>{busy?'Opening checkout…':'Continue to checkout'}</button>
+        <button type="button" className="checkout-back" disabled={busy} onClick={closeCheckout}>Back to plans</button>
+      </form>
+    </dialog>}
   </>;
 }
