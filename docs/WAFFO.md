@@ -67,6 +67,8 @@ node --env-file=.env.accounts billing/migrate.mjs
 3. 同频道不同尺寸不加次数，新频道加一次；上限为 Starter 100 / Pro 1,000。
 4. 验证取消续费、周期结束和退款后的权限；伪造成功返回 URL 不应升级。
 
-**当前状态：代码、自动化测试、Neon 并发额度和本地浏览器验证已完成；此网站的 Waffo 正式店铺配置、真实支付及生产 webhook 尚未验收，不能据此视为已经开放收款。**
+**当前状态（2026-11-02）：Waffo 审核通过，独立正式店铺、两个商品、Production 环境变量和 RAW webhook 已配置，Vercel 正式部署已 Ready。正式域名健康检查正常，无签名回调返回 401；这只能确认配置初始化及签名校验已启用。真实购买、Waffo 签名回调到账、付费额度开通及取消/退款尚未完成正式验收。用户应从网站登录后的套餐页购买，避免直接使用不能绑定本站账户的公开商品链接。**
+
+本次配置与部署凭证见 [waffo-production-setup.md](waffo-production-setup.md)。
 
 官方参考：[SDK](https://docs.waffo.ai/integrate/sdks)、[订单查询](https://docs.waffo.ai/api-reference/endpoints/graphql/orders-and-payments)、[webhook](https://docs.waffo.ai/api-reference/webhooks)。
