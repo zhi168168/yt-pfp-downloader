@@ -42,6 +42,11 @@ for (const path of indexablePaths) {
   pages.push({ path, title, description, initialH1: 1, canonical: `${origin}${path}`, localLinksAndAssets: 'pass' });
 }
 const home = await readFile('dist/index.html', 'utf8');
+for (const size of exampleProfile.sizes) {
+  const asset = await sharp(resolve(root, '.' + size.imageUrl)).metadata();
+  assert.equal(asset.width, size.width, `Example ${size.size}: incorrect image width`);
+  assert.equal(asset.height, size.height, `Example ${size.size}: incorrect image height`);
+}
 assert.ok(home.includes('id="profile-input"') && home.includes(`alt="${exampleProfile.name} profile picture example"`));
 const schema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
 assert.equal(schema.url, origin + '/');

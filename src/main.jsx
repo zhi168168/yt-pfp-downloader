@@ -14,7 +14,7 @@ function ProfileResult({ profile, onRefresh, onExample, busy, input, restoredSiz
   const dialogRef = useRef();
   const sizes = profile?.sizes || exampleProfile.sizes;
   const choice = sizes.find(s=>s.size === selected) || sizes[0];
-  const image = profile ? choice.imageUrl : exampleProfile.image;
+  const image = choice.imageUrl;
   const channelName = profile?.name || exampleProfile.name;
   useEffect(()=>{ setSelected(restoredSize || profile?.sizes[0]?.size || 800); setMessage(''); },[profile]);
   useEffect(()=>{
@@ -66,8 +66,8 @@ function ProfileResult({ profile, onRefresh, onExample, busy, input, restoredSiz
         <p className="download-message" role="status">{message}</p>
       </div>
     </div>
-    <div className="panel-bottom"><Icon name="picture"/><span>{profile ? 'Sizes are checked against the image returned by YouTube. Larger sizes may be scaled.' : 'Example: channel link → avatar preview → choose a size → download JPG. Larger sizes may be scaled.'}</span></div>
-    {zoom && <dialog ref={dialogRef} className="image-dialog" onCancel={()=>setZoom(false)} onClick={e=>{if(e.target===e.currentTarget)setZoom(false);}}><button className="icon-button dialog-close" aria-label="Close enlarged preview" onClick={()=>setZoom(false)}><Icon name="close"/></button><img src={image} alt={`${channelName} enlarged profile picture`} className={shape==='circle'?'circle':''}/><p>{profile ? `${profile.name} · ${choice.width} × ${choice.height}` : `Example · ${channelName} · 400 × 400 preview`}</p></dialog>}
+    <div className="panel-bottom"><Icon name="picture"/><span>{profile ? 'Sizes are checked against the image returned by YouTube. Larger sizes may be scaled.' : 'The preview frame stays fixed. Choose a size to compare image resolution. Larger versions may be scaled.'}</span></div>
+    {zoom && <dialog ref={dialogRef} className="image-dialog" onCancel={()=>setZoom(false)} onClick={e=>{if(e.target===e.currentTarget)setZoom(false);}}><button className="icon-button dialog-close" aria-label="Close enlarged preview" onClick={()=>setZoom(false)}><Icon name="close"/></button><img src={image} alt={`${channelName} enlarged profile picture`} className={shape==='circle'?'circle':''}/><p>{`${profile ? '' : 'Example · '}${channelName} · ${choice.width} × ${choice.height} px`}</p></dialog>}
   </section>;
 }
 export function Downloader() {

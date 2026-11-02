@@ -83,3 +83,8 @@ account pages are not measured.
 
 The detailed Chinese audit is in [docs/SEO逐项审查与优化.md](docs/SEO逐项审查与优化.md),
 with deployment and measurement follow-ups in [docs/seo-action-log.md](docs/seo-action-log.md).
+
+The example switches between nine committed JPEG variants, with verified pixel
+dimensions, while keeping the preview frame fixed. To refresh its public channel
+images manually, run `node --env-file=.env scripts/refresh-example.mjs`, then
+rebuild. Regular builds do not call YouTube or need its API key.
