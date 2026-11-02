@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { WaffoPancake } from '@waffo/pancake-ts';
 import { billingConfig } from './config.mjs';
 import { plans } from './plans.mjs';
+import { policyVersion } from '../policies/metadata.mjs';
 
 export function checkoutURL(value) {
   const url = new URL(value);
@@ -103,7 +104,7 @@ export function createBilling(store, settings, env = process.env, options = {}) 
         if (!row) {
           row = {id:randomUUID().replaceAll('-','')};
           await query('INSERT INTO billing_orders(id,user_id,plan,mode,product_id,created,consented_at,terms_version) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id',
-            [row.id,user.id,plan,store.mode,config.products[plan],Date.now(),Date.now(),'2026-11-02']);
+            [row.id,user.id,plan,store.mode,config.products[plan],Date.now(),Date.now(),policyVersion]);
         }
         return {orderId:row.id};
       });

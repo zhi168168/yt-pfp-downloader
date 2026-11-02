@@ -699,11 +699,14 @@ export function AccountPage() {
           )
         )}
         <p className="account-footnote">
+          By creating an account, you confirm you are 18 or older and accept our{" "}
+          <a href="/terms.html">Terms of Service</a>. Read our{" "}
+          <a href="/privacy.html">Privacy Policy</a>.<br />
           One free channel per UTC day. All available image sizes included.{" "}
           <a href="/about.html">About</a> · <a href="/contact.html">Contact</a>{" "}
           · <a href="/privacy.html">Privacy</a> ·{" "}
           <a href="/terms.html">Terms</a>
-          <br />Customer support: <a href="mailto:zhihaosong168@gmail.com">zhihaosong168@gmail.com</a>
+          <br />Customer support: <a href="mailto:gordon2024@qq.com">gordon2024@qq.com</a>
         </p>
         {config?.localMailbox && view !== "mailbox" && (
           <a

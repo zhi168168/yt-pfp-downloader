@@ -70,6 +70,7 @@ export function Pricing() {
       <h2>What counts as one use?</h2><p>One unique YouTube channel per account per UTC day. A channel lookup unlocks its profile information, previews and every available avatar size. Reopening that channel, changing sizes or using a video link from the same channel does not use more of your daily allowance.</p>
       <h2>When does my allowance reset?</h2><p>Every day at 00:00 UTC. Unused allowance does not roll over. Failed lookups do not count. Opening a channel again on a new UTC day uses one of that day’s slots.</p>
       <h2>How do monthly plans work?</h2><p>Starter is $3.88/month for 100 channels per day. Pro is $9.88/month for 1,000 channels per day. No trial or annual commitment. Cancel renewal through My account; access continues through the successfully paid period. A failed renewal or expired period returns your account to Free.</p>
+      <h2>Can I request a refund?</h2><p>For your first paid subscription, request a full refund within 7 calendar days if your total paid channel uses since that payment are no more than 10 for Starter or 100 for Pro. This is a cumulative threshold, not a daily refund threshold. Support reviews requests. Duplicate charges, qualifying service interruptions and mandatory legal rights are covered in our <a href="/refunds.html">Refund Policy</a>.</p>
       <h2>Does paying create a sharper original?</h2><p>All plans offer the same available image sizes. Larger variants may be scaled by YouTube; a paid plan increases your daily channel allowance.</p>
     </div>
   </>;

@@ -38,6 +38,18 @@ export class BillingStore {
       } else await this.database.query(`ALTER TABLE billing_orders ADD COLUMN IF NOT EXISTS ${name} ${type}`);
     }
   }
+  // Support-only evidence. Payment time comes from the verified Waffo receipt;
+  // period start or local checkout creation are not payment-success timestamps.
+  async refundUsage(orderId, firstPaymentAt, requestedAt) {
+    if (![firstPaymentAt,requestedAt].every(Number.isFinite) || requestedAt<firstPaymentAt) throw new Error('Invalid refund review times');
+    const [order] = await this.query('SELECT * FROM billing_orders WHERE id=$1 AND mode=$2',[orderId,this.mode]);
+    if(!order || !plans[order.plan] || order.plan==='free')throw new Error('Paid order not found');
+    const [count] = await this.query('SELECT COUNT(*) AS used FROM channel_usage WHERE user_id=$1 AND mode=$2 AND created>=$3 AND created<=$4',[order.user_id,this.mode,firstPaymentAt,requestedAt]);
+    const used=Number(count.used),threshold=order.plan==='starter'?10:100,deadline=firstPaymentAt+7*86400000;
+    return {plan:order.plan,firstPaymentAt,requestedAt,deadline,used,threshold,
+      withinWindow:requestedAt<=deadline,withinUsage:used<=threshold,
+      requiresManualVerification:true,reviewNote:'Verify receipt, first-subscription history and request receipt time; no refund is issued by this report.'};
+  }
   async transaction(userId, action) {
     if (this.local) {
       const run = (queues.get(this.database) || Promise.resolve()).then(async () => {

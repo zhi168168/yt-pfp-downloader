@@ -35,6 +35,23 @@ function mockClient() {
 }
 function remote(row,plan='starter') {return {...period(plan),id:'ORD_'+row.id,storeId:env.WAFFO_STORE_ID,currency:'USD',testMode:true,merchantProvidedBuyerIdentity:row.user_id,orderMerchantExternalId:row.id,productVersion:{productId:row.product_id}};}
 
+test('Refund evidence excludes prepayment use, counts channel-days cumulatively, and uses request receipt time',async t=>{
+  const store=await fixture(t),start=Date.parse('2026-11-02T12:00:00Z');
+  await paidOrder(store,'starter','alice','first',start+32*86400000);
+  await store.claim('alice',channel(1),start-1000);
+  for(let i=2;i<=11;i++)await store.claim('alice',channel(i),start+i);
+  await store.claim('alice',channel(2),start+2000);
+  const atReceipt=await store.refundUsage('first',start,start+2000);
+  assert.equal(atReceipt.used,10);assert.equal(atReceipt.threshold,10);assert.ok(atReceipt.withinWindow && atReceipt.withinUsage);
+  await store.claim('alice',channel(2),start+86400000);
+  assert.equal((await store.refundUsage('first',start,start+86400000)).used,11);
+  assert.equal((await store.refundUsage('first',start,start+86400000)).withinUsage,false);
+  assert.equal((await store.refundUsage('first',start,start+2000)).used,10);
+  assert.equal((await store.refundUsage('first',start,start+7*86400000+1)).withinWindow,false);
+  await assert.rejects(store.refundUsage('missing',start,start),/Paid order not found/);
+  assert.ok(atReceipt.requiresManualVerification);
+});
+
 test('Free allowance is one canonical channel; repeats, accounts, modes and UTC days are independent',async t=>{
   const store=await fixture(t), day=Date.parse('2026-11-02T23:59:59Z');
   const results=await Promise.all(Array.from({length:20},()=>store.claim('alice',channel(1),day)));
