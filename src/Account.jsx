@@ -320,7 +320,7 @@ export function AccountPage() {
         <a className="site-wordmark" href="/">
           <img
             className="brand-logo"
-            src="/favicon.svg"
+            src="/logo.png"
             width="32"
             height="32"
             alt=""
