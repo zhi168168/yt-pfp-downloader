@@ -35,9 +35,9 @@ canonical、robots sitemap 链接和 sitemap.xml。
 
 ## 部署后检查
 
-1. 首页输入 `@YouTube`，应看到频道和九档可用图片尺寸。
+1. 先登录，再输入 `@YouTube`，应看到频道和可用图片尺寸；免费账户当天只解锁一个频道。
 2. 选一个尺寸，点击 Download JPG，确认下载成功。
-3. 输入 `https://youtu.be/jNQXAC9IVRw`，应识别 jawed 频道。
+3. 同一频道切换尺寸、重复下载应仍只使用一次额度；第二个不同频道应提示升级套餐。
 4. 打开 `/api/health`，应返回 `{"ok":true,"configured":true}`。
 5. 查看 `/robots.txt`、`/sitemap.xml` 和 About/Privacy/Terms/Contact。
 
@@ -53,4 +53,5 @@ canonical、robots sitemap 链接和 sitemap.xml。
 - 图片下载签名使用统一环境密钥，可跨函数实例、冷启动验证。
 - 内存缓存和每 IP 限流仅在当前函数实例生效，不是跨实例全局限流；
   公开推广后若需要统一流量控制，应配置 Vercel Firewall 或共享存储。
-- 本次只准备并测试部署适配，没有创建 Vercel 项目或执行公网部署。
+- 套餐上线前执行 `node --env-file=.env.accounts billing/migrate.mjs`；Waffo 环境变量与回调见 [WAFFO.md](WAFFO.md)。
+- 支付未配置时仍可使用免费额度；支付回调和真实交易需要配置后单独验收。

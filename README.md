@@ -1,6 +1,6 @@
 # YT PFP Downloader
 
-Free English-language channel-avatar tool. Node 24.x; React + Vite frontend,
+English-language channel-avatar tool with a free daily allowance. Node 24.x; React + Vite frontend,
 Node HTTP server, official YouTube Data API, server-side JPEG delivery.
 
 ## Run
@@ -49,7 +49,7 @@ daily-budget guarantee. Hosting access logs are controlled by the host.
 
 Fonts and licenses are bundled in public/fonts; no dependency on local fonts.
 The example image is a public YouTube channel avatar, clearly marked Example.
-Better Auth accounts support Google and verified email sign-in. Downloads require a real session; previews are public and capped at 400px. No analytics or payments. See [account setup](docs/accounts.md) for independent production credentials.
+Better Auth accounts support Google and verified email sign-in. Lookups, previews and downloads require a real session. Free includes 1 unique channel/day, Starter is $3.88/month for 100/day, and Pro is $9.88/month for 1,000/day. All sizes of a channel share one daily use; reset is 00:00 UTC. Usage is persisted in PostgreSQL across function instances. Waffo subscriptions require separate configuration in [docs/WAFFO.md](docs/WAFFO.md); without credentials the free allowance still works and paid checkout is unavailable. Google Analytics is enabled on public pages. See [account setup](docs/accounts.md) for independent production credentials.
 
 ## Behavior
 

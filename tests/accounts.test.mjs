@@ -52,24 +52,26 @@ async function fixture(t) {
   return { service, call, messages, directory, options };
 }
 
-test("Avatar downloads reject guests and revoked sessions; previews cannot expose full size", async (t) => {
+test("Avatar downloads and previews require real account-bound sessions", async (t) => {
   const { service, call, messages } = await fixture(t);
   await call("sign-up/email", { name:"Downloader", email:"download@example.test", password:"DownloadPass123!" });
   await service.auth.handler(new Request(emailURL(messages[0])));
   const cookie = cookies(await call("sign-in/email", { email:"download@example.test", password:"DownloadPass123!" }));
-  const server = createApp({ secret:'test', key:'test',
+  const owner = (await (await call('get-session',undefined,cookie)).json()).user.id;
+  const server = createApp({ secret:'test', key:'test',accessReader:async()=>({allowed:true}),
     sessionReader:req=>service.auth.api.getSession({headers:fromNodeHeaders(req.headers)}),
     fetcher:async url=>new Response(await sharp({create:{width:Number(url.match(/=s(\d+)/)[1]),height:Number(url.match(/=s(\d+)/)[1]),channels:3,background:'#ccc'}}).jpeg().toBuffer(),{headers:{'content-type':'image/jpeg'}})
   });
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   t.after(()=>new Promise(r=>server.close(r)));
-  const token = tokenCodec('test').encode({source:'https://yt3.ggpht.com/test=s800-c',name:'Test',id:'test'});
+  const token = tokenCodec('test').encode({source:'https://yt3.ggpht.com/test=s800-c',name:'Test',id:'UCBR8-60-B28hp2BmDPdntcQ',userId:owner});
   const url = `http://127.0.0.1:${server.address().port}/api/image?token=${token}&size=1280`;
   assert.equal((await fetch(url)).status,401);
   assert.equal((await fetch(url+'&inline=2')).status,401);
-  const preview = await fetch(url+'&inline=1');
+  assert.equal((await fetch(url+'&inline=1')).status,401);
+  const preview = await fetch(url+'&inline=1',{headers:{cookie}});
   assert.equal(preview.status,200);
-  assert.equal((await sharp(Buffer.from(await preview.arrayBuffer())).metadata()).width,400);
+  assert.equal((await sharp(Buffer.from(await preview.arrayBuffer())).metadata()).width,1280);
   const image = await fetch(url,{headers:{cookie}});
   assert.equal(image.status,200);
   assert.equal(image.headers.get('cache-control'),'no-store');

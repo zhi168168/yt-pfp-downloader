@@ -1,6 +1,6 @@
 # YT PFP 登录注册配置
 
-复用 Typeflow 的 Better Auth 流程，独立账号数据，不接支付。游客可以查询和预览（最多 400px）；登录后可以下载所选原尺寸。邮箱注册必须先验证邮件。支持 Google、找回密码、修改姓名/密码、退出登录、邮件确认删除账号。下载前暂存频道和尺寸，返回后重新查询以获取有效链接。
+复用 Typeflow 的 Better Auth 流程，独立账号数据。查询、预览和下载均需登录；免费账户每天解锁 1 个频道，该频道所有尺寸共用一次额度。Starter / Pro 套餐及收款配置见 [WAFFO.md](WAFFO.md)。邮箱注册必须先验证邮件。支持 Google、找回密码、修改姓名/密码、退出登录、邮件确认删除账号。下载前暂存频道和尺寸，返回后重新查询以获取有效链接。
 
 ## 1. 独立 PostgreSQL 数据库
 
@@ -8,8 +8,8 @@
 
 - `DATABASE_URL`：Neon 的 pooled connection string，保留 `sslmode=require`。
 - `DIRECT_DATABASE_URL`：同一个数据库的 direct connection string，供建表使用。
-- `ACCOUNT_ORIGIN=https://ytpfp.com`
-- `PUBLIC_ORIGIN=https://ytpfp.com`
+- `ACCOUNT_ORIGIN=https://www.ytpfp.com`
+- `PUBLIC_ORIGIN=https://www.ytpfp.com`
 - `BETTER_AUTH_SECRET`：独立生成并长期保存的随机密钥，至少 32 字符，与下载签名密钥不同。
 
 生成密钥（在自己终端运行，将输出直接填入 Vercel，勿提交到 GitHub）：
@@ -21,15 +21,15 @@ node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'
 ## 2. Google 登录
 
 1. 打开 [Google Cloud Console](https://console.cloud.google.com/)，可使用之前启用 YouTube API 的项目。
-2. Google Auth Platform → Branding：应用名称 `YT PFP`，设置支持邮箱和开发者邮箱；网站 `https://ytpfp.com`，隐私政策 `https://ytpfp.com/privacy.html`，服务条款 `https://ytpfp.com/terms.html`，授权域名 `ytpfp.com`。
+2. Google Auth Platform → Branding：应用名称 `YT PFP`，设置支持邮箱和开发者邮箱；网站 `https://www.ytpfp.com`，隐私政策 `https://www.ytpfp.com/privacy.html`，服务条款 `https://www.ytpfp.com/terms.html`，授权域名 `ytpfp.com`。
 3. Audience 选择 External。测试阶段把自己的 Google 邮箱加到 Test users；正式开放前选择 Publish app / In production。
 4. Data Access 只使用登录必需的 `openid`、基本个人资料和邮箱，不申请 YouTube 管理权限。
 5. Clients → Create client → Web application，名称 `YT PFP Web`。
-6. Authorized JavaScript origins：`https://ytpfp.com`。
-7. Authorized redirect URIs：**`https://ytpfp.com/api/auth/callback/google`**，必须完全一致。
+6. Authorized JavaScript origins：`https://www.ytpfp.com`。
+7. Authorized redirect URIs：**`https://www.ytpfp.com/api/auth/callback/google`**，必须完全一致。
 8. 将 Client ID / Client secret 填入 Vercel 的 `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`，两项必须同时配置。YouTube API key 不能代替它们。
 
-不复用 typing-animation.com 的客户端密钥。`www` 如有使用，建议重定向到裸域名，统一登录来源。Google 如要求验证域名，按控制台提示通过 Search Console 完成。这里只使用基本登录权限；以控制台实际审核要求为准。
+不复用 typing-animation.com 的客户端密钥。正式网站统一使用 `www.ytpfp.com`，裸域名重定向到 www，所有回调地址必须与此一致。Google 如要求验证域名，按控制台提示通过 Search Console 完成。这里只使用基本登录权限；以控制台实际审核要求为准。
 
 ## 3. 注册和找回密码邮件
 
@@ -55,14 +55,14 @@ Vercel 项目 Node.js 选 **24.x**。保留现有 `YOUTUBE_API_KEY` 和 `DOWNLOA
 node --env-file=.env.accounts accounts/migrate.mjs
 ```
 
-看到 `YT PFP account schema is up to date.` 后在 Vercel Redeploy。建表是独立步骤，不在每个请求或构建时自动改生产数据库。迁移脚本优先读取 direct URL。本机 `.env` 中的开发配置不会覆盖上面命令显式设置的环境变量；如系统已设置 `AUTH_DEV_MODE`，请先移除。
+看到 `YT PFP account schema is up to date.` 后，再执行 `node --env-file=.env.accounts billing/migrate.mjs` 建立额度及订阅表，然后在 Vercel Redeploy。建表是独立步骤，不在每个请求或构建时自动改生产数据库。迁移脚本优先读取 direct URL。本机 `.env` 中的开发配置不会覆盖上面命令显式设置的环境变量；如系统已设置 `AUTH_DEV_MODE`，请先移除。
 
 ## 5. 验收
 
-1. 打开 `https://ytpfp.com/api/auth/config`，检查 configured / google / emailRegistration 是否为 true。
-2. 无痕模式查询频道，下载应跳转登录，登录后返回并恢复所选尺寸。
+1. 打开 `https://www.ytpfp.com/api/auth/config`，检查 configured / google / emailRegistration 是否为 true。
+2. 无痕模式查询频道应跳转登录，登录后返回并恢复输入；当天同一频道重复查询、切换尺寸和下载只计一次。
 3. 测试 Google 登录、邮箱注册 → 收信验证 → 登录、找回密码 → 重置 → 重新登录。
-4. 退出后原尺寸下载应再次要求登录；账号页可改姓名和密码。
+4. 退出后查询、预览和下载都应要求登录；账号页可改姓名和密码。
 5. 测试账号可申请删除，在仍登录的同一浏览器打开确认邮件；旧会话应立即失效。
 
 正式 Google 和真实邮件需要配置后在真实域名验证，本地测试邮箱不代表真实投递成功。

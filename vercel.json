@@ -20,6 +20,10 @@
     "api/account.mjs": {
       "maxDuration": 30,
       "memory": 1024
+    },
+    "api/billing.mjs": {
+      "maxDuration": 60,
+      "memory": 1024
     }
   },
   "headers": [
@@ -60,12 +64,20 @@
   ],
   "rewrites": [
     {
+      "source": "/api/billing/:path*",
+      "destination": "/api/billing?__billingPath=:path*"
+    },
+    {
       "source": "/api/auth/:path*",
       "destination": "/api/account?__authPath=:path*"
     },
     {
       "source": "/account",
       "destination": "/account.html"
+    },
+    {
+      "source": "/pricing",
+      "destination": "/pricing.html"
     }
   ]
 }

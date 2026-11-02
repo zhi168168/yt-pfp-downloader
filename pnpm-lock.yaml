@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@waffo/pancake-ts':
+        specifier: 0.26.0
+        version: 0.26.0
       better-auth:
         specifier: 1.7.10
         version: 1.7.10(pg@8.23.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -592,6 +595,10 @@ packages:
 
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
+
+  '@waffo/pancake-ts@0.26.0':
+    resolution: {integrity: sha512-3exK093SGBYmbhEF40jRF+BiCQZRLLThxsADZ3s3vJs/JPDqRSICAmUiIUhu0/gtDe1hB0VzrduLSYRS9YAMhg==}
+    engines: {node: '>=20.0.0'}
 
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
@@ -1447,6 +1454,8 @@ snapshots:
   '@standard-schema/spec@1.1.0': {}
 
   '@types/estree@1.0.9': {}
+
+  '@waffo/pancake-ts@0.26.0': {}
 
   accepts@2.0.0:
     dependencies:

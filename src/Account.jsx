@@ -9,6 +9,7 @@ import {
   LogOut,
 } from "lucide-react";
 import "./account.css";
+import { BillingPanel } from "./Billing.jsx";
 
 
 export async function accountAPI(path, data) {
@@ -140,7 +141,7 @@ export function AccountPage() {
   const [notice, setNotice] = useState(""),
     [error, setError] = useState(""),
     [mail, setMail] = useState([]);
-  const returnTo = ["/"].includes(query.get("returnTo"))
+  const returnTo = ["/", "/pricing.html"].includes(query.get("returnTo"))
     ? query.get("returnTo")
     : "/";
   const accountURL = (extra = {}) => {
@@ -183,7 +184,7 @@ export function AccountPage() {
           setView("account");
         if (query.has("download"))
           setNotice(
-            "Sign in to download for free. Your channel and selected size are saved on this device.",
+            "Sign in to use your daily channel allowance. Your channel and selected size are saved on this device.",
           );
         if (query.has("verified"))
           setNotice("Email verified. You can now sign in.");
@@ -227,6 +228,7 @@ export function AccountPage() {
         EMAIL_NOT_VERIFIED:
           "Please verify your email first. You can request a new verification link below.",
         INVALID_PASSWORD: "Your current password is incorrect.",
+        BAD_REQUEST: "If you have a subscription or pending checkout, manage it before deleting this account. Contact support if you need help.",
         INVALID_TOKEN: "This link is invalid or expired. Request a new one.",
         TOKEN_EXPIRED: "This link has expired. Request a new one.",
         PASSWORD_TOO_SHORT: "Use at least 8 characters for your password.",
@@ -357,6 +359,7 @@ export function AccountPage() {
         )}
         {!loading && view === "account" && user ? (
           <>
+            <BillingPanel />
             <div className="account-identity">
               <span className="account-avatar">
                 {(user.name || user.email)[0].toUpperCase()}
@@ -696,7 +699,7 @@ export function AccountPage() {
           )
         )}
         <p className="account-footnote">
-          Look up and preview for free. Sign in to download.{" "}
+          One free channel per UTC day. All available image sizes included.{" "}
           <a href="/about.html">About</a> · <a href="/contact.html">Contact</a>{" "}
           · <a href="/privacy.html">Privacy</a> ·{" "}
           <a href="/terms.html">Terms</a>

@@ -143,6 +143,7 @@ export async function createAccounts(config, options = {}) {
     user: {
       deleteUser: {
         enabled: config.email,
+        beforeDelete: options.beforeDelete,
         deleteTokenExpiresIn: 3600,
         sendDeleteAccountVerification: async ({ user, url }) =>
           send(user.email, "delete", url),
