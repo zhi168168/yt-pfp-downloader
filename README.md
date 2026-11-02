@@ -66,3 +66,20 @@ Better Auth accounts support Google and verified email sign-in. Lookups, preview
 
 See docs/competitor-research.md for current competitor pricing and limits of
 the public observations. See docs/design.md and docs/verification.md for UI QA.
+
+## SEO build and checks
+
+`pnpm build` prerenders the homepage tool and pricing with the same React
+components used in the browser. Keep the `<!--prerender-end-->` boundaries in
+the HTML templates. Update the React components, then rebuild; generated markup
+is refreshed automatically and hydrated on the client.
+
+Set `PUBLIC_ORIGIN=https://www.ytpfp.com` for the production build so canonical,
+OG/Twitter, application schema and sitemap use the real domain. Vercel's
+production project URL remains the fallback. After building, run `pnpm seo:check`
+with the same origin to validate the seven indexable pages and write
+`docs/seo-verification.json`. Google Analytics remains off until user consent;
+account pages are not measured.
+
+The detailed Chinese audit is in [docs/SEO逐项审查与优化.md](docs/SEO逐项审查与优化.md),
+with deployment and measurement follow-ups in [docs/seo-action-log.md](docs/seo-action-log.md).

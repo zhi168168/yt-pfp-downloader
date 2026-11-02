@@ -81,3 +81,8 @@ await writeFile(new URL('site.webmanifest', output), JSON.stringify({
   icons: [192, 512].map(size => ({ src: `/favicon-${size}.png`, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any' })),
 }, null, 2) + '\n');
 console.log('Generated logo, square PNG favicons, multi-size ICO, Apple icon and web manifest.');
+
+// Social card reuses the supplied brand artwork; no third-party avatar or rating.
+const card = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#0b0b0d"/><rect x="64" y="64" width="1072" height="502" rx="32" fill="#131315" stroke="#39333f"/><text x="116" y="256" fill="#f5f5f7" font-family="Arial,sans-serif" font-size="58" font-weight="700">YT PFP Downloader</text><text x="116" y="326" fill="#c8b7f5" font-family="Arial,sans-serif" font-size="30">Download YouTube profile pictures</text><text x="116" y="426" fill="#a2a2ad" font-family="Arial,sans-serif" font-size="24">JPG downloads · Up to 9 sizes</text><text x="116" y="466" fill="#a2a2ad" font-family="Arial,sans-serif" font-size="24">Sign in for 1 free channel per UTC day</text></svg>`);
+await mkdir(new URL('images/', output), { recursive: true });
+await sharp(card).composite([{ input: await sharp(logo).resize(110,110).toBuffer(), left: 950, top: 144 }]).png().toFile(fileURLToPath(new URL('images/yt-pfp-downloader-social.png', output)));

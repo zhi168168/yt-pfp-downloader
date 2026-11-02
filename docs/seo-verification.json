@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-11-02T08:51:55.414Z",
+  "scope": "Local production build; not a live deployment or Google indexing validation.",
+  "origin": "https://www.ytpfp.com",
+  "pages": [
+    {
+      "path": "/",
+      "title": "YT PFP Downloader – Download YouTube Profile Pictures",
+      "description": "Use YT PFP Downloader to save YouTube profile pictures as JPGs in up to 9 sizes. Sign in for 1 free channel daily. Paste a channel URL, @handle or video link.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/",
+      "localLinksAndAssets": "pass"
+    },
+    {
+      "path": "/about.html",
+      "title": "About YT PFP | YT PFP Downloader",
+      "description": "Learn how YT PFP Downloader retrieves public YouTube channel avatars, checks image dimensions, and handles free daily access and image ownership.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/about.html",
+      "localLinksAndAssets": "pass"
+    },
+    {
+      "path": "/contact.html",
+      "title": "Contact | YT PFP Downloader",
+      "description": "Contact YT PFP Downloader support for channel lookup errors, JPG download issues, account questions, or image rights concerns.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/contact.html",
+      "localLinksAndAssets": "pass"
+    },
+    {
+      "path": "/pricing.html",
+      "title": "Pricing — Daily Channel Plans | YT PFP",
+      "description": "One free YouTube channel daily. Starter: $3.88/month for 100 channels/day. Pro: $9.88/month for 1,000 channels/day. Every avatar size shares one channel use.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/pricing.html",
+      "localLinksAndAssets": "pass"
+    },
+    {
+      "path": "/privacy.html",
+      "title": "Privacy Policy | YT PFP Downloader",
+      "description": "Read how YT PFP Downloader handles account details, channel lookups, payments, optional analytics, cookies, retention, and privacy requests.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/privacy.html",
+      "localLinksAndAssets": "pass"
+    },
+    {
+      "path": "/terms.html",
+      "title": "Terms of Service | YT PFP Downloader",
+      "description": "Read the YT PFP Downloader terms covering account access, daily channel limits, monthly subscriptions, image rights, and acceptable use.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/terms.html",
+      "localLinksAndAssets": "pass"
+    },
+    {
+      "path": "/refunds.html",
+      "title": "Refund Policy | YT PFP Downloader",
+      "description": "Review YT PFP Downloader refund eligibility, first-subscription limits, duplicate charges, service interruptions, and how to contact support.",
+      "initialH1": 1,
+      "canonical": "https://www.ytpfp.com/refunds.html",
+      "localLinksAndAssets": "pass"
+    }
+  ],
+  "prerender": "Tool form, example image, pricing and renewal terms present without JavaScript",
+  "socialImage": {
+    "width": 1200,
+    "height": 630
+  },
+  "sitemap": "pass",
+  "schema": "pass"
+}

@@ -29,7 +29,7 @@ export function BillingPanel() {
 }
 export function Pricing() {
   const [usage,setUsage]=useState(null),[guest,setGuest]=useState(false),[loading,setLoading]=useState(true),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[consent,setConsent]=useState(false);
-  const payment=new URLSearchParams(location.search).get('payment');
+  const payment=new URLSearchParams(typeof location === 'undefined' ? '' : location.search).get('payment');
   async function refresh() {
     setError('');setLoading(true);
     try {
@@ -47,7 +47,7 @@ export function Pricing() {
     catch(error){setError(error.message);}finally{setBusy(false);}
   }
   return <>
-    <div className="pricing-intro"><span className="eyebrow">SIMPLE MONTHLY PLANS</span><h1>One channel.<br/>Every image size.</h1><p>Start with one free channel a day. Need more? Choose your daily allowance.</p></div>
+    <div className="pricing-intro"><span className="eyebrow">SIMPLE MONTHLY PLANS</span><h1>YT PFP Downloader pricing</h1><p>Start with one free channel a day. Need more? Choose your daily allowance. Every plan includes all available image sizes.</p></div>
     {usage && <UsageLine usage={usage}/>}
     {usage?.mode==='test' && <p className="billing-notice">Sandbox payment mode. Test purchases do not grant production access.</p>}
     {error && <p className="billing-error" role="alert">{error}</p>}

@@ -62,6 +62,9 @@
       ]
     }
   ],
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "statusCode": 301 }
+  ],
   "rewrites": [
     {
       "source": "/api/billing/:path*",
