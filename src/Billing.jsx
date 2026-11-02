@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect,useRef,useState} from 'react';
 import {plans} from '../billing/plans.mjs';
 import './billing.css';
 
@@ -28,6 +28,7 @@ export function BillingPanel() {
     {error && <p className="billing-error" role="alert">{error}</p>}</section>;
 }
 export function Pricing() {
+  const consentInput=useRef(null);
   const [usage,setUsage]=useState(null),[guest,setGuest]=useState(false),[loading,setLoading]=useState(true),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[consent,setConsent]=useState(false);
   const payment=new URLSearchParams(typeof location === 'undefined' ? '' : location.search).get('payment');
   async function refresh() {
@@ -42,6 +43,12 @@ export function Pricing() {
   useEffect(()=>{refresh();},[]);
   async function checkout(plan) {
     if(guest){location.assign('/account?returnTo=%2Fpricing.html');return;}
+    if(!consent){
+      setError('Before choosing a paid plan, read and accept the monthly renewal terms above.');
+      consentInput.current?.scrollIntoView({behavior:'smooth',block:'center'});
+      consentInput.current?.focus({preventScroll:true});
+      return;
+    }
     setBusy(true);setError('');
     try{const result=await billingAPI('checkout',{plan,consent});location.assign(result.url);}
     catch(error){setError(error.message);}finally{setBusy(false);}
@@ -52,18 +59,22 @@ export function Pricing() {
     {usage?.mode==='test' && <p className="billing-notice">Sandbox payment mode. Test purchases do not grant production access.</p>}
     {error && <p className="billing-error" role="alert">{error}</p>}
     {notice && <p className="billing-notice" role="status">{notice}</p>}
+    <div className="billing-authorization">
+      <p>Before choosing a paid plan</p>
+      <label className="billing-consent"><input ref={consentInput} type="checkbox" checked={consent} onChange={e=>{setConsent(e.target.checked);setError('');}}/><span>I agree to the <a href="/terms.html">Terms</a>, <a href="/privacy.html">Privacy Policy</a> and <a href="/refunds.html">Refund Policy</a>, and authorize monthly recurring charges for the plan I choose until I cancel.</span></label>
+    </div>
     <div className="pricing-grid">{Object.entries(plans).map(([key,plan])=><section className={`price-card ${key==='starter'?'recommended':''}`} key={key}>
       <div className="price-heading"><h2>{plan.name}</h2>{key==='starter'&&<span>MORE ROOM</span>}</div>
       <p className="price-amount">${plan.amount}<span>{key==='free'?' / forever':' / month'}</span></p>
       <p className="price-limit"><strong>{plan.dailyLimit.toLocaleString('en-US')}</strong> {plan.dailyLimit===1?'channel':'channels'} per day</p>
       <ul><li>Channel lookup and profile information</li><li>Preview every available image size</li><li>Download all available avatar sizes</li><li>Repeat a channel at no extra daily cost</li></ul>
       {key==='free' ? <a className="primary" href={guest?'/account?returnTo=%2F':'/'}>{guest?'Create a free account':'Back to downloader'}</a>:
-        <button className="primary" disabled={loading || busy || (!guest && (!consent || !usage?.paymentsAvailable || usage?.hasSubscription))} onClick={()=>checkout(key)}>
+        <button className="primary" disabled={loading || busy || (!guest && (!usage?.paymentsAvailable || usage?.hasSubscription))} onClick={()=>checkout(key)}>
           {busy?'Opening checkout…':usage?.plan===key?'Current plan':guest?'Sign in to choose':`Choose ${plan.name}`}</button>}
       <p className="billing-note">{key==='free'?'No card required.':`Billed monthly at $${plan.amount} USD, plus any applicable tax. Automatically renews until canceled.`}</p>
+      {key!=='free' && !guest && !consent && !loading && usage?.paymentsAvailable && !usage?.hasSubscription && <p className="billing-note">Accept the monthly renewal terms above to continue.</p>}
     </section>)}</div>
     <div className="pricing-details">
-      <label className="billing-consent"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/><span>I agree to the <a href="/terms.html">Terms</a>, <a href="/privacy.html">Privacy Policy</a> and <a href="/refunds.html">Refund Policy</a>, and authorize monthly recurring charges for the plan I choose until I cancel.</span></label>
       {!guest && !loading && !usage?.paymentsAvailable && <p className="billing-note">Paid checkout is not available yet. Your free daily channel allowance is available.</p>}
       {usage?.hasSubscription && <p className="billing-note">Manage or cancel your existing subscription in <a href="/account">My account</a>. A second subscription is blocked to prevent duplicate charges.</p>}
       <button className="text-link" disabled={loading || busy} onClick={refresh}>Refresh plan / payment status</button>

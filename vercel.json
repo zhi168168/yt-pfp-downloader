@@ -63,6 +63,9 @@
     }
   ],
   "redirects": [
+    { "source": "/account", "has": [{ "type": "host", "value": "(?<deployment>.+)\\.vercel\\.app" }], "destination": "https://www.ytpfp.com/account", "statusCode": 307 },
+    { "source": "/account.html", "has": [{ "type": "host", "value": "(?<deployment>.+)\\.vercel\\.app" }], "destination": "https://www.ytpfp.com/account", "statusCode": 307 },
+    { "source": "/:path*", "has": [{ "type": "host", "value": "ytpfp.com" }], "destination": "https://www.ytpfp.com/:path*", "statusCode": 308 },
     { "source": "/index.html", "destination": "/", "statusCode": 301 }
   ],
   "rewrites": [
