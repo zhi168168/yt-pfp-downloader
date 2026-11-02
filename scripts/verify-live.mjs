@@ -36,5 +36,5 @@ assert.equal((await profile('@this_channel_does_not_exist_ytpfptest_83027491')).
 for(const page of ['/','/about.html','/privacy.html','/terms.html','/contact.html','/pricing.html','/refunds.html'])assert.equal((await fetch(base+page)).status,200);
 const html = await (await fetch(base)).text();
 assert.ok(!html.includes('AIza'));
-await writeFile('docs/live-verification.json',JSON.stringify({verifiedAt:new Date().toISOString(),checks},null,2));
+await writeFile('docs/billing-live-verification.json',JSON.stringify({verifiedAt:new Date().toISOString(),checks},null,2));
 console.log(JSON.stringify(checks,null,2));

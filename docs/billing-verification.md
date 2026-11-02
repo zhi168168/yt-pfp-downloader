@@ -10,3 +10,5 @@
 - Production Neon schema migration succeeded, including consent audit fields and account closure guards. Database changes do not by themselves prove a Vercel deployment.
 
 Not yet verified: this site's live Waffo merchant/store/product configuration, actual paid transactions, renewal/cancellation/refund callbacks through deployed Vercel raw-body routing, and real paid entitlements. These require setup and production acceptance described in [WAFFO.md](WAFFO.md). Mock SDK tests do not establish successful real collection.
+
+Production smoke check after GitHub commit ea4bb25: https://www.ytpfp.com rejects guest lookup with 401 and serves homepage, legal pages, pricing and refunds with HTTP 200. Live pricing was also inspected in-browser. This does not test signed-in production quota or paid checkout.
