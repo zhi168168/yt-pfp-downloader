@@ -1,12 +1,12 @@
 {
-  "checkedAt": "2026-11-02T09:14:05.707Z",
+  "checkedAt": "2026-11-03T02:13:22.472Z",
   "scope": "Local production build; not a live deployment or Google indexing validation.",
   "origin": "https://www.ytpfp.com",
   "pages": [
     {
       "path": "/",
-      "title": "YT PFP Downloader – Download YouTube Profile Pictures",
-      "description": "Use YT PFP Downloader to save YouTube profile pictures as JPGs in up to 9 sizes. Sign in for 1 free channel daily. Paste a channel URL, @handle or video link.",
+      "title": "YT PFP Downloader – Save YouTube Profile Pictures as JPG",
+      "description": "Use YT PFP Downloader to preview and save YouTube profile pictures as JPGs in up to 9 sizes. Paste a URL or @handle. Sign in for one free channel per UTC day.",
       "initialH1": 1,
       "canonical": "https://www.ytpfp.com/",
       "localLinksAndAssets": "pass"
