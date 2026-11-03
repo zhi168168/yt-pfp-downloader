@@ -3,7 +3,7 @@
 日期：2026-11-03（中国时间）  
 页面：https://www.ytpfp.com/  
 目标关键词：yt pfp downloader  
-交付状态：本地源码与构建产物已更新、已验证；本次未部署。
+交付状态：已推送 main（a497647），Vercel 部署成功；2026-11-03 10:18（中国时间）正式域名验收通过，详见 onpage-seo-live-2026-11-03.json。
 
 ## 逐项处理体检报告
 
@@ -95,4 +95,5 @@ The circle option helps you check how a YouTube PFP looks inside a round avatar 
 - pnpm test：58 项全部通过。
 - 首页构建体积约 19.24 kB；仍为静态 HTML 输出，包含工具表单。
 - 浏览器检查桌面步骤区及 390px 手机 FAQ，新增问题可展开，无页面横向溢出。
-- 本次未部署、未复测第三方 SEO 分数、未执行真实账号下载或验证 Google 索引排名。
+- 后续已完成生产部署与正式域名验收：首页新 meta、唯一 H1、表单、3 条新 FAQ、canonical、OG/Twitter、schema、robots/sitemap 均通过；首页、价格页和健康接口均返回 200，健康接口 configured=true。浏览器确认线上新增 FAQ 可展开，截图为 screenshots/onpage-seo-live-2026-11-03.png。
+- 未复测第三方 SEO 分数、未执行真实账号下载或验证 Google 索引排名。

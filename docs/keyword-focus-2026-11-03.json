@@ -1,0 +1,796 @@
+{
+  "checkedAt": "2026-11-03T02:22:28.659Z",
+  "method": "Local diagnostic, not the external audit score. Body HTML text; excludes head/script/style/svg; alphabetic n-grams within text blocks only. Unigrams omit the disclosed common stopwords, but retain px and yt. Ties sorted alphabetically.",
+  "unigramStopwords": [
+    "a",
+    "an",
+    "the",
+    "and",
+    "or",
+    "to",
+    "of",
+    "in",
+    "on",
+    "for",
+    "from",
+    "with",
+    "is",
+    "it",
+    "its",
+    "as",
+    "at",
+    "by",
+    "be",
+    "can",
+    "do",
+    "does",
+    "not",
+    "no",
+    "your",
+    "you",
+    "we",
+    "our",
+    "their",
+    "this",
+    "that",
+    "then",
+    "than",
+    "before",
+    "after",
+    "all",
+    "are",
+    "may",
+    "one",
+    "up",
+    "per",
+    "same",
+    "use",
+    "s"
+  ],
+  "before": {
+    "wordCount": 1280,
+    "keywordOccurrences": 7,
+    "top": {
+      "1": [
+        [
+          "channel",
+          38
+        ],
+        [
+          "youtube",
+          24
+        ],
+        [
+          "px",
+          19
+        ],
+        [
+          "image",
+          17
+        ],
+        [
+          "link",
+          17
+        ],
+        [
+          "avatar",
+          16
+        ],
+        [
+          "download",
+          15
+        ],
+        [
+          "profile",
+          15
+        ],
+        [
+          "pfp",
+          13
+        ],
+        [
+          "picture",
+          12
+        ]
+      ],
+      "2": [
+        [
+          "the channel",
+          11
+        ],
+        [
+          "profile picture",
+          9
+        ],
+        [
+          "yt pfp",
+          9
+        ],
+        [
+          "pfp downloader",
+          8
+        ],
+        [
+          "channel s",
+          7
+        ],
+        [
+          "a youtube",
+          6
+        ],
+        [
+          "video link",
+          6
+        ],
+        [
+          "a channel",
+          5
+        ],
+        [
+          "handle or",
+          5
+        ],
+        [
+          "s current",
+          5
+        ]
+      ],
+      "3": [
+        [
+          "yt pfp downloader",
+          7
+        ],
+        [
+          "channel s current",
+          5
+        ],
+        [
+          "the channel s",
+          4
+        ],
+        [
+          "youtube profile picture",
+          4
+        ],
+        [
+          "a channel s",
+          3
+        ],
+        [
+          "choose a size",
+          3
+        ],
+        [
+          "public video link",
+          3
+        ],
+        [
+          "the same channel",
+          3
+        ],
+        [
+          "url handle or",
+          3
+        ],
+        [
+          "a public video",
+          2
+        ]
+      ],
+      "4": [
+        [
+          "the channel s current",
+          3
+        ],
+        [
+          "a channel s current",
+          2
+        ],
+        [
+          "a public video link",
+          2
+        ],
+        [
+          "channel per utc day",
+          2
+        ],
+        [
+          "channel s current avatar",
+          2
+        ],
+        [
+          "channel s current handle",
+          2
+        ],
+        [
+          "channel url handle or",
+          2
+        ],
+        [
+          "handle or video link",
+          2
+        ],
+        [
+          "is month for channels",
+          2
+        ],
+        [
+          "month for channels day",
+          2
+        ]
+      ],
+      "5": [
+        [
+          "a channel s current avatar",
+          2
+        ],
+        [
+          "is month for channels day",
+          2
+        ],
+        [
+          "the channel s current handle",
+          2
+        ],
+        [
+          "url handle or video link",
+          2
+        ],
+        [
+          "a blurry source cannot restore",
+          1
+        ],
+        [
+          "a channel every account gets",
+          1
+        ],
+        [
+          "a channel s handle a",
+          1
+        ],
+        [
+          "a channel url handle or",
+          1
+        ],
+        [
+          "a circular mask in your",
+          1
+        ],
+        [
+          "a circular preview when starting",
+          1
+        ]
+      ]
+    },
+    "targetRanks": {
+      "1": [
+        {
+          "phrase": "pfp",
+          "count": 13,
+          "rank": 9
+        },
+        {
+          "phrase": "downloader",
+          "count": 11,
+          "rank": 11
+        },
+        {
+          "phrase": "yt",
+          "count": 9,
+          "rank": 18
+        }
+      ],
+      "2": [
+        {
+          "phrase": "yt pfp",
+          "count": 9,
+          "rank": 3
+        },
+        {
+          "phrase": "pfp downloader",
+          "count": 8,
+          "rank": 4
+        }
+      ],
+      "3": [
+        {
+          "phrase": "yt pfp downloader",
+          "count": 7,
+          "rank": 1
+        },
+        {
+          "phrase": "for yt pfp",
+          "count": 1,
+          "rank": 377
+        },
+        {
+          "phrase": "pfp downloader finds",
+          "count": 1,
+          "rank": 641
+        },
+        {
+          "phrase": "pfp downloader frequently",
+          "count": 1,
+          "rank": 642
+        },
+        {
+          "phrase": "pfp downloader lets",
+          "count": 1,
+          "rank": 643
+        },
+        {
+          "phrase": "picture yt pfp",
+          "count": 1,
+          "rank": 653
+        },
+        {
+          "phrase": "use yt pfp",
+          "count": 1,
+          "rank": 914
+        },
+        {
+          "phrase": "youtube pfp downloader",
+          "count": 1,
+          "rank": 984
+        }
+      ],
+      "4": [
+        {
+          "phrase": "a youtube pfp downloader",
+          "count": 1,
+          "rank": 61
+        },
+        {
+          "phrase": "for yt pfp downloader",
+          "count": 1,
+          "rank": 335
+        },
+        {
+          "phrase": "link for yt pfp",
+          "count": 1,
+          "rank": 478
+        },
+        {
+          "phrase": "pfp downloader finds a",
+          "count": 1,
+          "rank": 592
+        },
+        {
+          "phrase": "pfp downloader frequently asked",
+          "count": 1,
+          "rank": 593
+        },
+        {
+          "phrase": "pfp downloader lets you",
+          "count": 1,
+          "rank": 594
+        },
+        {
+          "phrase": "picture yt pfp downloader",
+          "count": 1,
+          "rank": 603
+        },
+        {
+          "phrase": "profile picture yt pfp",
+          "count": 1,
+          "rank": 631
+        }
+      ],
+      "5": [
+        {
+          "phrase": "how to use yt pfp",
+          "count": 1,
+          "rank": 348
+        },
+        {
+          "phrase": "is a youtube pfp downloader",
+          "count": 1,
+          "rank": 398
+        },
+        {
+          "phrase": "link for yt pfp downloader",
+          "count": 1,
+          "rank": 448
+        },
+        {
+          "phrase": "means profile picture yt pfp",
+          "count": 1,
+          "rank": 477
+        },
+        {
+          "phrase": "pfp downloader finds a channel",
+          "count": 1,
+          "rank": 554
+        },
+        {
+          "phrase": "pfp downloader frequently asked questions",
+          "count": 1,
+          "rank": 555
+        },
+        {
+          "phrase": "pfp downloader lets you view",
+          "count": 1,
+          "rank": 556
+        },
+        {
+          "phrase": "picture yt pfp downloader lets",
+          "count": 1,
+          "rank": 564
+        }
+      ]
+    }
+  },
+  "after": {
+    "wordCount": 1313,
+    "keywordOccurrences": 12,
+    "top": {
+      "1": [
+        [
+          "channel",
+          37
+        ],
+        [
+          "youtube",
+          24
+        ],
+        [
+          "pfp",
+          21
+        ],
+        [
+          "px",
+          19
+        ],
+        [
+          "avatar",
+          18
+        ],
+        [
+          "downloader",
+          16
+        ],
+        [
+          "download",
+          15
+        ],
+        [
+          "profile",
+          15
+        ],
+        [
+          "link",
+          14
+        ],
+        [
+          "yt",
+          14
+        ]
+      ],
+      "2": [
+        [
+          "yt pfp",
+          14
+        ],
+        [
+          "pfp downloader",
+          13
+        ],
+        [
+          "the channel",
+          11
+        ],
+        [
+          "profile picture",
+          9
+        ],
+        [
+          "channel s",
+          7
+        ],
+        [
+          "a youtube",
+          6
+        ],
+        [
+          "a channel",
+          5
+        ],
+        [
+          "handle or",
+          5
+        ],
+        [
+          "s current",
+          5
+        ],
+        [
+          "sign in",
+          5
+        ]
+      ],
+      "3": [
+        [
+          "yt pfp downloader",
+          12
+        ],
+        [
+          "channel s current",
+          5
+        ],
+        [
+          "use yt pfp",
+          5
+        ],
+        [
+          "the channel s",
+          4
+        ],
+        [
+          "youtube profile picture",
+          4
+        ],
+        [
+          "a channel s",
+          3
+        ],
+        [
+          "choose a size",
+          3
+        ],
+        [
+          "pfp downloader to",
+          3
+        ],
+        [
+          "url handle or",
+          3
+        ],
+        [
+          "a public video",
+          2
+        ]
+      ],
+      "4": [
+        [
+          "use yt pfp downloader",
+          5
+        ],
+        [
+          "the channel s current",
+          3
+        ],
+        [
+          "yt pfp downloader to",
+          3
+        ],
+        [
+          "a channel s current",
+          2
+        ],
+        [
+          "a public video url",
+          2
+        ],
+        [
+          "channel per utc day",
+          2
+        ],
+        [
+          "channel s current avatar",
+          2
+        ],
+        [
+          "channel s current handle",
+          2
+        ],
+        [
+          "channel url handle or",
+          2
+        ],
+        [
+          "handle or video link",
+          2
+        ]
+      ],
+      "5": [
+        [
+          "use yt pfp downloader to",
+          3
+        ],
+        [
+          "a channel s current avatar",
+          2
+        ],
+        [
+          "is month for channels day",
+          2
+        ],
+        [
+          "the channel s current handle",
+          2
+        ],
+        [
+          "url handle or video link",
+          2
+        ],
+        [
+          "a blurry source cannot restore",
+          1
+        ],
+        [
+          "a channel every account gets",
+          1
+        ],
+        [
+          "a channel s handle a",
+          1
+        ],
+        [
+          "a channel url handle or",
+          1
+        ],
+        [
+          "a circular mask in your",
+          1
+        ]
+      ]
+    },
+    "targetRanks": {
+      "1": [
+        {
+          "phrase": "pfp",
+          "count": 21,
+          "rank": 3
+        },
+        {
+          "phrase": "downloader",
+          "count": 16,
+          "rank": 6
+        },
+        {
+          "phrase": "yt",
+          "count": 14,
+          "rank": 10
+        }
+      ],
+      "2": [
+        {
+          "phrase": "yt pfp",
+          "count": 14,
+          "rank": 1
+        },
+        {
+          "phrase": "pfp downloader",
+          "count": 13,
+          "rank": 2
+        }
+      ],
+      "3": [
+        {
+          "phrase": "yt pfp downloader",
+          "count": 12,
+          "rank": 1
+        },
+        {
+          "phrase": "use yt pfp",
+          "count": 5,
+          "rank": 3
+        },
+        {
+          "phrase": "pfp downloader to",
+          "count": 3,
+          "rank": 8
+        },
+        {
+          "phrase": "for yt pfp",
+          "count": 1,
+          "rank": 395
+        },
+        {
+          "phrase": "pfp downloader checks",
+          "count": 1,
+          "rank": 651
+        },
+        {
+          "phrase": "pfp downloader finds",
+          "count": 1,
+          "rank": 652
+        },
+        {
+          "phrase": "pfp downloader frequently",
+          "count": 1,
+          "rank": 653
+        },
+        {
+          "phrase": "pfp downloader lets",
+          "count": 1,
+          "rank": 654
+        }
+      ],
+      "4": [
+        {
+          "phrase": "use yt pfp downloader",
+          "count": 5,
+          "rank": 1
+        },
+        {
+          "phrase": "yt pfp downloader to",
+          "count": 3,
+          "rank": 3
+        },
+        {
+          "phrase": "a youtube pfp downloader",
+          "count": 1,
+          "rank": 67
+        },
+        {
+          "phrase": "for yt pfp downloader",
+          "count": 1,
+          "rank": 351
+        },
+        {
+          "phrase": "link for yt pfp",
+          "count": 1,
+          "rank": 488
+        },
+        {
+          "phrase": "pfp downloader checks the",
+          "count": 1,
+          "rank": 600
+        },
+        {
+          "phrase": "pfp downloader finds a",
+          "count": 1,
+          "rank": 601
+        },
+        {
+          "phrase": "pfp downloader frequently asked",
+          "count": 1,
+          "rank": 602
+        }
+      ],
+      "5": [
+        {
+          "phrase": "use yt pfp downloader to",
+          "count": 3,
+          "rank": 1
+        },
+        {
+          "phrase": "how to use yt pfp",
+          "count": 1,
+          "rank": 362
+        },
+        {
+          "phrase": "is a youtube pfp downloader",
+          "count": 1,
+          "rank": 408
+        },
+        {
+          "phrase": "link for yt pfp downloader",
+          "count": 1,
+          "rank": 456
+        },
+        {
+          "phrase": "means profile picture yt pfp",
+          "count": 1,
+          "rank": 484
+        },
+        {
+          "phrase": "pfp downloader checks the available",
+          "count": 1,
+          "rank": 560
+        },
+        {
+          "phrase": "pfp downloader finds a channel",
+          "count": 1,
+          "rank": 561
+        },
+        {
+          "phrase": "pfp downloader frequently asked questions",
+          "count": 1,
+          "rank": 562
+        }
+      ]
+    }
+  }
+}

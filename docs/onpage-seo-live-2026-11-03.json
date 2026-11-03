@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-11-03T02:18:27.163Z",
+  "origin": "https://www.ytpfp.com",
+  "commit": "a497647da1da6a3107c7f7e4e5de22d2cb48bdf1",
+  "deployment": [
+    {
+      "state": "success",
+      "url": "https://vercel.com/haosongs-projects-f976a543/yt-pfp-downloader/SkbW5AVapH8UTHNHasDBWn8WYfGM",
+      "description": "Deployment has completed"
+    }
+  ],
+  "title": "YT PFP Downloader – Save YouTube Profile Pictures as JPG",
+  "description": "Use YT PFP Downloader to preview and save YouTube profile pictures as JPGs in up to 9 sizes. Paste a URL or @handle. Sign in for one free channel per UTC day.",
+  "h1": 1,
+  "words": 1280,
+  "keywordOccurrences": 7,
+  "checks": {
+    "initialHtmlForm": "pass",
+    "newFaqs": "pass",
+    "canonical": "pass",
+    "socialMetadata": "pass",
+    "schema": "pass",
+    "robotsAndSitemap": "pass"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/pricing.html",
+      "status": 200
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200
+    },
+    {
+      "path": "/api/health",
+      "status": 200
+    }
+  ],
+  "health": {
+    "ok": true,
+    "configured": true
+  },
+  "scope": "Production HTML and read-only health checks; no authenticated channel lookup, payment transaction or Google indexing validation."
+}

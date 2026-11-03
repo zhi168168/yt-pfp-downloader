@@ -4,6 +4,8 @@
 
 | 日期 | 状态 | 动作 | 页面/关键词 | 后续验证 |
 |---|---|---|---|---|
+| 2026-11-03 | 第二轮关键词聚焦，本地已验证 | 功能/尺寸/FAQ 补全主语，减少泛称 image/link；约 1313 词，完整词组 12 次；自有诊断中 pfp/downloader/yt 均进入单词前十，核心 2～5 词短语均到第 1 | 详见 keyword-focus-2026-11-03.md 和 JSON | 不等同于第三方 6.33/10 已变更；发布后验证正式页面 |
+| 2026-11-03 | 已部署并线上验证 | a497647 已推送 main，Vercel success；正式域名新 Title/Description、唯一 H1、表单、3 条 FAQ、canonical、OG/Twitter、schema、robots/sitemap 通过，约 1280 词；价格页及健康接口 200，configured=true | 首页 yt pfp downloader，验收时间 10:18 中国时间；详见 onpage-seo-live-2026-11-03.json | 未复测第三方分数及 Google 索引排名，未执行真实账号下载 |
 | 2026-11-03 | 本地已优化并验证 | 按体检报告优化 Title/Description、步骤 H2、操作说明与 3 条新 FAQ；减少额度重复宣传；正文约 1280 词，唯一 H1 与工具表单已直出；build、SEO 检查、58 测试及桌面/390px 浏览器检查通过 | 首页 yt pfp downloader，详见 onpage-seo-2026-11-03.md | 本次未部署；保留根 URL，不为关键词覆盖创建重复页；第三方分数及索引排名待上线后复测 |
 | 2026-11-02 | 线上只读基线 | 检查 HTTPS/域名归并、robots、sitemap、首页与价格页源码、404 | yt pfp downloader：首页/价格页 | 原价格页无初始 H1/套餐正文，分享图缺失 |
 | 2026-11-02 | 本地已实现 | 重写首页标题/摘要、首段/步骤/FAQ，明确账号与免费额度；H2 改为具体主题 | 首页及相关同义词簇 | 上线后按等长时间窗比较 GSC |
